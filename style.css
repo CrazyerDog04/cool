@@ -45,6 +45,10 @@ footer {
   text-align: center;
   padding: 20px;
 }
+
+.footer p:hover{
+  color: #FFFFFF
+}
 .animated {
   animation-duration: 1s;
   animation-fill-mode: both;
@@ -118,8 +122,4 @@ footer {
 
 .social-icons a:hover i {
   color: #000000; 
-}
-
-.footer p{
-  color: #FFFFFF;
 }
