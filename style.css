@@ -84,20 +84,20 @@ footer {
 .social-icons {
   display: flex;
   justify-content: space-between;
-  max-width: 400px;  /* 可依需求調整寬度 */
+  max-width: 400px; 
   margin: 0 auto;
   padding: 20px 0;
 }
 
 .social-icons a {
-  flex: 1;               /* 平均分配寬度 */
+  flex: 1;             
   margin: 0 5px;
   text-align: center;
   text-decoration: none;
 }
 
 .icon-box {
-  background-color: #203a43;  /* 深藍綠色背景 */
+  background-color: #203a43;
   padding: 15px;
   border-radius: 6px;
   display: inline-block;
@@ -106,7 +106,7 @@ footer {
 }
 
 .social-icons a:hover .icon-box {
-  background-color: #00f2ff;  /* 懸停時變亮藍色背景 */
+  background-color: #00f2ff; 
   box-shadow: 0 0 15px #00f2ffcc;
 }
 
@@ -117,5 +117,9 @@ footer {
 }
 
 .social-icons a:hover i {
-  color: #000000;  /* 懸停時字色變黑 */
+  color: #000000; 
+}
+
+.footer{
+  color: #FFFFFF;
 }
