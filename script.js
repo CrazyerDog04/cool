@@ -8,11 +8,17 @@ $(window).on('scroll', function () {
     }
   });
 
+$(window).scroll(function() {
   if ($(this).scrollTop() > 300) {
     $('#scrollTopBtn').fadeIn();
   } else {
     $('#scrollTopBtn').fadeOut();
   }
+});
+
+$('#scrollTopBtn').click(function() {
+  $('html, body').animate({ scrollTop: 0 }, 600);
+  return false;
 });
 
 $('#scrollTopBtn').on('click', function () {
