@@ -46,8 +46,8 @@ footer {
   padding: 20px;
 }
 
-.footer p:hover{
-  color: #FFFFFF
+footer p{
+  color: #FFFFFF;
 }
 
 .animated {
