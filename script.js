@@ -1,73 +1,76 @@
 $(window).on('scroll', function () {
+  const windowHeight = $(window).height();
+  const scroll = $(window).scrollTop();
+
   $('section').each(function () {
-    const top = $(this).offset().top;
-    const scroll = $(window).scrollTop();
-    const windowHeight = $(window).height();
-    if (scroll + windowHeight - 100 > top) {
-      $(this).addClass('animated fadeInUp');
+    const $this = $(this);
+    // Only process if it doesn't already have the class
+    if (!$this.hasClass('animated')) {
+      const top = $this.offset().top;
+      if (scroll + windowHeight - 100 > top) {
+        $this.addClass('animated fadeInUp');
+      }
     }
   });
 
-$(window).scroll(function() {
-  if ($(this).scrollTop() > 300) {
+  if (scroll > 300) {
     $('#scrollTopBtn').fadeIn();
   } else {
     $('#scrollTopBtn').fadeOut();
   }
 });
 
-$('#scrollTopBtn').click(function() {
-  $('html, body').animate({ scrollTop: 0 }, 600);
-  return false;
-});
-
-$('#scrollTopBtn').on('click', function () {
+$('#scrollTopBtn').on('click', function (e) {
+  e.preventDefault();
   $('html, body').animate({ scrollTop: 0 }, 600);
 });
 
-// 激光動畫
 const canvas = document.getElementById('laserCanvas');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+function setCanvasSize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+setCanvasSize();
 
 const lasers = [];
 
 function createLaser() {
   const g = Math.floor(Math.random() * 155 + 100);
-  const b = Math.floor(255 - (g - 100));
+  const b = 255 - (g - 100);
   return {
     x: Math.random() * canvas.width,
-    y: canvas.height,
+    y: canvas.height + 200, // Start slightly off-screen
     length: Math.random() * 100 + 100,
     speed: Math.random() * 5 + 5,
-    color: `rgba(0, ${g}, ${b}, 0.1)`
+    color: `rgba(0, ${g}, ${b}, 0.5)` // Slightly higher opacity for visibility
   };
-}
-
-
-function drawLaser(laser) {
-  ctx.beginPath();
-  ctx.strokeStyle = laser.color;
-  ctx.lineWidth = 2;
-  ctx.moveTo(laser.x, laser.y);
-  ctx.lineTo(laser.x, laser.y - laser.length);
-  ctx.stroke();
 }
 
 function updateLasers() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  lasers.forEach((laser, i) => {
+  
+  for (let i = lasers.length - 1; i >= 0; i--) {
+    const laser = lasers[i];
     laser.y -= laser.speed;
-    drawLaser(laser);
-    if (laser.y + laser.length < 0) lasers.splice(i, 1);
-  });
+
+    ctx.beginPath();
+    ctx.strokeStyle = laser.color;
+    ctx.lineWidth = 2;
+    ctx.moveTo(laser.x, laser.y);
+    ctx.lineTo(laser.x, laser.y - laser.length);
+    ctx.stroke();
+
+    if (laser.y + laser.length < 0) {
+      lasers.splice(i, 1);
+    }
+  }
+
   if (Math.random() < 0.2) lasers.push(createLaser());
   requestAnimationFrame(updateLasers);
 }
+
 updateLasers();
 
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
+window.addEventListener('resize', setCanvasSize);
