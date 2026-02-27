@@ -49,6 +49,7 @@ footer {
 .footer p:hover{
   color: #FFFFFF
 }
+
 .animated {
   animation-duration: 1s;
   animation-fill-mode: both;
